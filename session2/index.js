@@ -39,6 +39,14 @@ colorContainerElement.addEventListener("click", (e) =>{
 //-----------------Form-----------------
 
 const formElement = document.getElementById("Booking-form");
+function validation(payload){
+    const {namezz,email} = payload;
+    const isNameValid = validateName(namezz);
+
+    const isEmailValid = validateEmail(email);
+    return isNameValid && isEmailValid;
+    
+}
 formElement.addEventListener("submit", (event) => {
     event.preventDefault(); // Prevent the form's default submit action
     console.log("form submitted")
@@ -57,4 +65,66 @@ formElement.addEventListener("submit", (event) => {
         date,
     };
     console.log(payload);
+    if(validation(payload)){
+        fetch("locationsedplayload.com",{
+            method:"POST",
+            body:JSON.stringify(payload),
+        });
+    }else{
+        alert("Enter good values")
+    }
+});
+// -----------------Event focus and blur-----------------
+const nameElement = formElement.elements["fullName"];
+const emailElement = formElement.elements["email"];
+const nameinfoElement = document.getElementById("name-info");
+const emailinfoElement = document.getElementById("email-info")
+// Name validation
+nameElement.addEventListener("focus",()=>{
+    nameinfoElement.innerHTML=""
+ 
+});
+function validateName(){
+    const nameRegex = /^[a-zA-Z\s'-]{1,50}$/;
+
+    let isValid = true;
+    if(!nm){
+        isValid = false;
+        nameinfoElement.innerHTML="Please enter your name!!!"
+    }else if(nm.length < 5){
+        isValid = false;
+        nameinfoElement.innerText = "Need atleast 5 character"
+    }else if(!String(nm).match(nameRegex)){
+        isValid = flase;
+        nameinfoElement.innerText = "Please enter valid name"
+    }
+}
+nameElement.addEventListener("blur",(e)=>{
+    const nm = e.target.value.trim();
+    validateName(nm);
+ 
+});
+
+// Email validation
+emailElement.addEventListener("focus",()=>{
+    emailinfoElement.innerText = "";
+  
+});
+function validateEmail(){
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    let isValid= true;
+    if(!email){
+        isValid=false;
+        emailinfoElement.innerText = "Please enter your email!!!"
+    }else if(!String(email).match(emailRegex)){
+        isValid = false;
+        emailinfoElement.innerText = "Please enter valid email!!!"
+    }
+    return isValid;
+}
+emailElement.addEventListener("blur",(e)=>{
+    const email = e.target.value.trim();
+    validateEmail(email);
+   
 });

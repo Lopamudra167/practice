@@ -98,4 +98,22 @@ containerBox4.addEventListener("click",()=>{
 containerBox4.textContent = "Clicked";
 containerBox4.style.background = "rgb(45,45,231)"
 });
+const counterElement2 = document.getElementById("counter10");
 
+const incrementButton2 = document.getElementById("increment10");
+incrementButton2.addEventListener("click",(e)=>{
+   
+const newElement = Number(counterElement2.innerHTML) + 10;
+counterElement2.innerHTML = newElement;
+    console.log(e);
+
+});
+const decrementButton2 = document.getElementById("decrement10");
+decrementButton2.addEventListener("click",(E) =>{
+    if(Number(counterElement2.innerHTML)===0){
+        return;
+    }
+ const newElement = Number(counterElement2.innerHTML) - 10;
+ counterElement2.innerHTML = newElement;
+    console.log(E);
+})
